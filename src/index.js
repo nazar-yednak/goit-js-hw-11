@@ -34,10 +34,11 @@ function onSearch(e) {
    e.preventDefault()
    
   const form = e.currentTarget;
+  
   if (e.currentTarget.elements.searchQuery.value === ""   ) {
     Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
   }
-   
+  
   else {  
     newsApiServise.query = e.currentTarget.elements.searchQuery.value;
     newsApiServise.resetPage()

@@ -11,7 +11,7 @@ export default class newsApiServise {
         this.page = 1;
         
     }
-    fetchCard() {
+    async fetchCard() {
         const options = {
           key: '28055079-45e3c423b4c5366c3627ebf35',
             q: '',
