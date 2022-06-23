@@ -28,7 +28,7 @@ refs.galery.addEventListener('click', onImageClick);
 
 
 
-// let searchQ = "";
+let searchQ = "";
 function onSearch(e) {
    
    e.preventDefault()
