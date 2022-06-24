@@ -26,7 +26,7 @@ refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
 refs.galery.addEventListener('click', onImageClick);
 
-
+console.log(refs.loadMoreBtn.addEventListener('click', onLoadMore));
 
 let searchQ = "";
 function onSearch(e) {
@@ -78,24 +78,33 @@ const markup =  data.hits.map(({ largeImageURL, tags, likes, views, comments, do
 </div>`
    }).join("")
   refs.galery.insertAdjacentHTML('beforeend', markup)
-  if (data.totalHits >= 40) {
+  if (data.totalHits >= 40)  {
     refs.loadMoreBtn.classList.remove('is-hidden')
   }
+  //  if (data.totalHits < 40)  {
+  //   refs.loadMoreBtn.classList.add('is-hidden')
+  // }
+
+
+
   Notiflix.Notify.success(`Sol lucet "Hooray! We found ${data.totalHits} images.`);
 
 }
-function onLoadMore(data) {
-
+function onLoadMore( e) {
+ e.preventDefault();
   newsApiServise.fetchCard().then(data => {
-    if (data.hits.length === 0) {
-
-   
-      Notiflix.Notify.failure(`We're sorry, but you've reached the end of search results.`);
-      return;
+    if (data.hits.length < 40 ) {    
+    Notiflix.Notify.failure(`We're sorry, but you've reached the end of search results.`);
+     refs.loadMoreBtn.classList.add('is-hidden')
+        return;
+        
     }
+  
+   
     else {
-      newsApiServise.fetchCard().then(renderGaleryCard)
-
+     
+  newsApiServise.fetchCard().then(renderGaleryCard)
+     
        
     }
   }).catch(error => { console.log(error); })
