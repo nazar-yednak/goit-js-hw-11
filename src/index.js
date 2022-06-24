@@ -35,7 +35,7 @@ function onSearch(e) {
    
   const form = e.currentTarget;
   
-  if (e.currentTarget.elements.searchQuery.value === ""   ) {
+  if (e.currentTarget.elements.searchQuery.value === ""       ) {
     Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
   }
   
@@ -47,7 +47,7 @@ function onSearch(e) {
    
     );
 
-    refs.loadMoreBtn.classList.remove('is-hidden')
+   
   
     form.reset();
     
@@ -76,18 +76,20 @@ const markup =  data.hits.map(({ largeImageURL, tags, likes, views, comments, do
     </p>
  </div>
 </div>`
-   })
+   }).join("")
   refs.galery.insertAdjacentHTML('beforeend', markup)
+  if (data.totalHits >= 40) {
+    refs.loadMoreBtn.classList.remove('is-hidden')
+  }
   Notiflix.Notify.success(`Sol lucet "Hooray! We found ${data.totalHits} images.`);
 
 }
-function onLoadMore(hits) {
+function onLoadMore(data) {
 
   newsApiServise.fetchCard().then(data => {
     if (data.hits.length === 0) {
 
-      refs.loadMoreBtn.classList.add('is-hidden');
-
+   
       Notiflix.Notify.failure(`We're sorry, but you've reached the end of search results.`);
       return;
     }
@@ -97,7 +99,8 @@ function onLoadMore(hits) {
        
     }
   }).catch(error => { console.log(error); })
-}
+
+}   
  
 
 function resetSearchGallery(){
