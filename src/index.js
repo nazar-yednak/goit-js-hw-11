@@ -81,9 +81,9 @@ const markup =  data.hits.map(({ largeImageURL, tags, likes, views, comments, do
   if (data.totalHits >= 40)  {
     refs.loadMoreBtn.classList.remove('is-hidden')
   }
-  //  if (data.totalHits < 40)  {
-  //   refs.loadMoreBtn.classList.add('is-hidden')
-  // }
+  if (data.totalHits < 40 || data.totalHits === 0 ) {
+    refs.loadMoreBtn.classList.add('is-hidden')
+  }
 
 
 
@@ -93,7 +93,7 @@ const markup =  data.hits.map(({ largeImageURL, tags, likes, views, comments, do
 function onLoadMore( e) {
  e.preventDefault();
   newsApiServise.fetchCard().then(data => {
-    if (data.hits.length < 40 ) {    
+    if ( data.hits.length === 0) {    
     Notiflix.Notify.failure(`We're sorry, but you've reached the end of search results.`);
      refs.loadMoreBtn.classList.add('is-hidden')
         return;
